@@ -23,7 +23,7 @@ streamlit.dataframe(fruits_to_show)
 def get_fruityvice_data(this_fruit_choice):
   fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + this_fruit_choice)    
   fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-  return streamlit.dataframe(fruityvice_normalized)
+  return fruityvice_normalized
 
 streamlit.header("Fruityvice Fruit Advice!")
 try:
@@ -35,12 +35,6 @@ try:
     streamlit.dataframe(back_from_function)
 except URLError as e:
   streamlit.error()
-
-#streamlit.text(fruityvice_response.json())
-# write your own comment -what does the next line do? 
-#fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
-# write your own comment - what does this do?
-#streamlit.dataframe(fruityvice_normalized)
 
 streamlit.stop()
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
